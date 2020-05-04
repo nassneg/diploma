@@ -1,1 +1,9 @@
 Дипломная работа
+
+1.Введение (Постановка и анализ задачи)
+2.Особенности Cloud Platform Service Now
+3.Анализ
+4.Работа с tesseract JS
+5.Работа с Google Cloud
+6.UI
+7.UX
