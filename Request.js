@@ -1,19 +1,18 @@
-var obj = {"requests":[
-{
-  "image":{
-    "source":{
-      "imageUri":
-        "https://www.imgonline.com.ua/examples/text-photographed.jpg"
-    }
-  },
-  "features":[
+var obj = {
+  "requests": [
     {
-      "type":"TEXT_DETECTION",
-      "maxResults":1
+      "image": {
+        "content": "base64-encoded-image"
+      },
+      "features": [
+        {
+          "type": "TEXT_DETECTION"
+        }
+      ]
     }
   ]
-}
-]};
+};
+
 var parser = new global.JSON();
 var str = parser.encode(obj);
 gs.info('The object '  + str);

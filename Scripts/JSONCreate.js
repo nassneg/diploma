@@ -1,16 +1,18 @@
-var obj = {"requests":[
+var obj = {
+  "requests": [
     {
-      "image":{
-        "content": "BASE64_ENCODED_DATA"
+      "image": {
+        "content": "base64-encoded-image"
       },
       "features": [
         {
-          "type":"LABEL_DETECTION",
-          "maxResults":1
+          "type": "TEXT_DETECTION"
         }
       ]
     }
-  ]};
+  ]
+};
+
 var parser = new JSON();
 var str = parser.encode(obj);
 

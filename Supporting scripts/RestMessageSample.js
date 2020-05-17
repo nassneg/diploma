@@ -4,20 +4,21 @@ try {
     restMessage.setEndpoint("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBHnApG-d0uXm8sImwYkY6jp75P8Uy8i2k");
     restMessage.setRequestBody(JSON.stringify({"requests":[
     {
-      "image":{
-        "source":{
-          "imageUri":
-            "https://www.imgonline.com.ua/examples/text-photographed.jpg"
-        }
-      },
-      "features":[
-        {
-          "type":"TEXT_DETECTION",
-          "maxResults":1
-        }
-      ]
-    }
-  ]}));
+      {
+        "requests": [
+          {
+            "image": {
+              "content": "base64-encoded-image"
+            },
+            "features": [
+              {
+                "type": "TEXT_DETECTION"
+              }
+            ]
+          }
+        ]
+      }
+));
     var response = restMessage.execute();
     if (response.getStatusCode() === 200) {
         var responseBody = response.getBody();
