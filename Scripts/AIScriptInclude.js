@@ -36,3 +36,9 @@ GoogleAIRest.prototype = Object.extendsObject(AbstractAjaxProcessor, {
     },
     type: 'GoogleAIRest'
 });
+
+//business rule
+var base = new GoogleAIRest();
+
+var str = base.base64Encode('98e56702db70101018d02fb748961906');
+base.requestJSON(str);
