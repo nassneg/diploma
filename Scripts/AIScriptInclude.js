@@ -60,9 +60,8 @@ GoogleAIRest.prototype = Object.extendsObject(AbstractAjaxProcessor, {
         if (response.getStatusCode() === 200) {
             var responseBody = response.getBody();
             var responseData = JSON.parse(responseBody);
-			var text = responseData.description;
-			gs.addInfoMessage("Description" + responseData);
-            gs.addInfoMessage("Good! " + responseBody);
+            gs.addInfoMessage("Description  " + responseData.responses[0].fullTextAnnotation.text);
+            //gs.addInfoMessage("Good! " + responseBody);
             // process successful response
         } else if (response.getStatusCode() === 0) {
 			gs.addInfoMessage("Good! " + responseBody);
