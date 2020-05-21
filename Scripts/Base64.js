@@ -1,17 +1,29 @@
-function toDataURL(url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.onload = function() {
-    var reader = new FileReader();
-    reader.onloadend = function() {
-      callback(reader.result);
-    }
-    reader.readAsDataURL(xhr.response);
-  };
-  xhr.open('GET', url);
-  xhr.responseType = 'blob';
-  xhr.send();
-}
+var attach = '98e56702db70101018d02fb748961906';
+var gr = new GlideRecord('sys_attachment');
+gr.addQuery ('sys_id',attach);
+gr.query();
 
-toDataURL('https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0', function(dataUrl) {
-  console.log('RESULT:', dataUrl)
-})
+if(gr.next()){
+  var sa = new GlideSysAttachment();
+  var binData = sa.getBytes(gr);
+  var base64 = GlideStringUtil.base64Encode(binData);
+  gs.info(base64);
+};
+
+
+
+
+{
+  "requests": [
+    {
+      "image": {
+        "content": "base64-encoded-image"
+      },
+      "features": [
+        {
+          "type": "TEXT_DETECTION"
+        }
+      ]
+    }
+  ]
+}
