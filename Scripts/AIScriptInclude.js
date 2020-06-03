@@ -40,31 +40,40 @@ GoogleAIRest.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 //business rule
 (function executeRule(current, previous /*null when async*/ ) {
 
-	var currID = '';
-	currID += current.sys_id;
-	gs.addInfoMessage(currID);
-    var base = new GoogleAIRest();
-    var str = base.base64Encode(currID);
-    var req = base.requestJSON(str);
+    var currID = current.sys_id;
+    gs.addInfoMessage(currID);
 
+    var visionAI = new GoogleAIRest();
+    var base64 = visionAI.base64Encode(currID);
+    var reqBody = visionAI.requestJSON(base64);
+
+	var gr = new GlideRecord('sys_auth_profile_basic');
+	gr.addQuery('sys_id', '648c6e4adb50101018d02fb74896193e');
+	gr.query();
+	if (gr.next()){
+		var username = gr.username;
+		var password = gr.password;
+	}
 
     try {
         var restMessage = new sn_ws.RESTMessageV2();
         restMessage.setHttpMethod("POST");
         restMessage.setEndpoint("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBHnApG-d0uXm8sImwYkY6jp75P8Uy8i2k");
-        restMessage.setBasicAuth("", "");
+        restMessage.setBasicAuth(username, password);
 
 
-        restMessage.setRequestBody(req);
+        restMessage.setRequestBody(reqBody);
         var response = restMessage.execute();
         if (response.getStatusCode() === 200) {
             var responseBody = response.getBody();
             var responseData = JSON.parse(responseBody);
-            gs.addInfoMessage("Description  " + responseData.responses[0].fullTextAnnotation.text);
+            //gs.addInfoMessage("Description  " + responseData.responses[0].fullTextAnnotation.text);
             //gs.addInfoMessage("Good! " + responseBody);
             // process successful response
+			current.u_vision = responseData.responses[0].fullTextAnnotation.text;
+			current.update();
         } else if (response.getStatusCode() === 0) {
-			gs.addInfoMessage("Good! " + responseBody);
+            gs.addInfoMessage("Good! " + responseBody);
             // process connect timed out
         } else {
             // process error response
@@ -72,12 +81,13 @@ GoogleAIRest.prototype = Object.extendsObject(AbstractAjaxProcessor, {
             var erorMessage = response.getErrorMessage();
             var contentType = response.getHeader("Content-Type");
             var body = response.getBody();
-			gs.addInfoMessage("NOT Good! " + body);
+            gs.addInfoMessage("NOT Good! " + body);
             // ...
         }
     } catch (ex) {
         // process exception
     }
+
 
 
 })(current, previous);
