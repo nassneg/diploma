@@ -3,7 +3,7 @@ function onChange(control, oldValue, newValue, isLoading, isTemplate) {
       return;
    }
 
-    ScriptLoader.getScripts('ocr.jsdbx', function() {
+    ScriptLoader.getScripts('OCR.jsdbx', function() {
         Tesseract.recognize('https://dev103823.service-now.com/' + g_form.getValue('name'), newValue, {
             logger: function logger(m) {
                 return g_form.setValue('u_ocr_text', 'Progress: ' +  ((parseFloat(m['progress']) * 100).toFixed(2)) + '%');
