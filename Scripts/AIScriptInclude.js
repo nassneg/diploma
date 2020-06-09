@@ -2,7 +2,7 @@ var GoogleAIRest = Class.create();
 GoogleAIRest.prototype = Object.extendsObject(AbstractAjaxProcessor, {
     base64Encode: function(attachID) {
         var gr = new GlideRecord('sys_attachment');
-        gr.addQuery('sys_id', attachID);
+        gr.addQuery('table_sys_id', attachID);
         gr.query();
 		var base64 = '';
 
